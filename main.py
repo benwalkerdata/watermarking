@@ -2,7 +2,6 @@ from tkinter import ttk, StringVar
 from ttkthemes import ThemedTk
 from watermarker import Watermarker
 
-# The constant variables are fonts and font colors.
 STEP_FONT = "Bahnschrift"
 BACKGROUND_COLOR = "#000000"
 TEXT_COLOR = "#FFFFFF"
@@ -10,10 +9,6 @@ SELECTED_COLOR = "#00FF00"
 
 
 def upload_photo():
-    """Calls the Watermarker upload photo function, and enables/disables
-    the buttons on the GUI to direct the user to the next step. This also
-    changes the font colors of the GUI labels to provide even more direction
-    to the user as to the current step."""
     watermarker.upload_photo()
     upload_image_button.config(state="disabled")
     upload_watermark_button.config(state="!disabled")
@@ -27,10 +22,6 @@ def upload_photo():
 
 
 def upload_mark_photo():
-    """Calls the Watermarker upload watermark photo function, and enables/disables
-    the buttons on the GUI to direct the user to the next step. This also
-    changes the font colors of the GUI labels to provide even more direction
-    to the user as to the current step."""
     watermarker.upload_watermark_photo()
     upload_watermark_button.config(state="disabled")
     confirm_text_button.config(state="disabled")
@@ -47,10 +38,6 @@ def upload_mark_photo():
 
 
 def get_text():
-    """If the user wants to use text instead of an image for their watermark, this gets the text from
-    the entry in the GUI, and also gets the text color from the GUI, and passes it to the Watermarker class instance.
-    This also enables/disables buttons on the GUI, and changes the GUI label font colors, to provide direction to the
-    user as to what the current step is."""
     text = watermark_text.get()
     if len(text) == 0:
         raise Exception("You didn't input any text.")
@@ -72,9 +59,6 @@ def get_text():
 
 
 def get_location():
-    """Gets the user's choice of where they want the watermark to be on their image. This returns an exception if the
-    user did not select a watermark. This also enables/disables buttons on the GUI, and changes the GUI label font
-    colors, to provide direction to the user as to what the current step is."""
     location = location_choice.get()
     print(location)
     if location == "":
@@ -89,28 +73,23 @@ def get_location():
 
 
 def mark_image():
-    """Calls the Watermarker mark image function, finishes running the app, and closes the GUI window."""
     window.destroy()
     watermarker.mark_image()
 
 
-# Creation of the main GUI window using a Tk theme.
 window = ThemedTk(theme="breeze")
-window.title("Make Your Mark - The Watermark App - by Corey Ellis")
+window.title("Watermarking App - by Ben Walker")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
-# Creation of the Watermarker class instance.
 watermarker = Watermarker()
 
-# The app's title heading.
 app_heading = ttk.Label(
-    text="Make your mark",
+    text="Watermark App",
     background=BACKGROUND_COLOR,
     foreground=TEXT_COLOR,
     font=("Cambria", 40)
 )
 app_heading.grid(column=0, row=0, pady=(0, 30))
 
-# Step one - upload image label and button.
 step_one = ttk.Label(
     text="Step 1. Upload your image",
     background=BACKGROUND_COLOR,
@@ -121,7 +100,6 @@ step_one.grid(column=0, row=1, pady=10, sticky="w")
 upload_image_button = ttk.Button(text="Upload photo", command=upload_photo)
 upload_image_button.grid(column=0, row=2, sticky="w")
 
-# Step two - a and b - choose to either upload a watermark image, or input text as a watermark.
 step_two_a = ttk.Label(
     text="Step 2a. Upload your watermark",
     background=BACKGROUND_COLOR,
