@@ -70,6 +70,19 @@ class Watermarker:
             x, y = self.set_mark_location(image_width, image_height, mark_width, mark_height)
             draw.text((x,y), text, font=font, fill=self.text_colour)
             watermarked_image = Image.alpha_composite(self.base_image, overlay_image)
-            
+        elif self.mark_is_image:
+            mark_image = self.watermark_image
+            mark_max_size = (image_width //4, image_height //4)
+            mark_image.putalpha(32)
+            mark_image.thumbnail(mark_max_size)
+            mark_width, mark_height = mark_image.size
+            x, y = self.set_mark_location(image_width, image_height, mark_width, mark_height)
+            self.base_image.paste(mark_image, (x, y), mark_image)
+            watermarked_image = self.base_image
+        else:
+            raise Exception("Something went wrong - please re-run the application and try again, "
+                            "or note the details of the bug and notify me.")
+        watermarked_image.show()
+        watermarked_image.save("watermarked_image.png")            
             
             
