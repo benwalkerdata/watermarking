@@ -1,2 +1,2 @@
 # portfolio-watermarking
-python image watermarking app
+python image watermarking app with TKinter UI.
