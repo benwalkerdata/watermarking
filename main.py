@@ -43,7 +43,7 @@ def get_text():
         raise Exception("You didn't input any text.")
     color = text_color.get()
     watermarker.get_text(text)
-    watermarker.set_text_color(color)
+    watermarker.text_color = color
     upload_watermark_button.config(state="disabled")
     color_choice.config(state="disabled")
     confirm_text_button.config(state="disabled")
@@ -77,7 +77,7 @@ def mark_image():
     watermarker.mark_image()
 
 
-window = ThemedTk(theme="breeze")
+window = ThemedTk(theme="yaru")
 window.title("Watermarking App - by Ben Walker")
 window.config(padx=50, pady=50, bg=BACKGROUND_COLOR)
 watermarker = Watermarker()
@@ -116,6 +116,7 @@ or_label = ttk.Label(
     foreground=TEXT_COLOR,
     font=(STEP_FONT, 20)
 )
+
 or_label.grid(column=0, row=5, pady=20, sticky="w")
 step_two_b = ttk.Label(
     text="Step 2b. Watermark with text",
@@ -123,22 +124,22 @@ step_two_b = ttk.Label(
     foreground=TEXT_COLOR,
     font=(STEP_FONT, 14)
 )
+
 step_two_b.grid(column=0, row=6, pady=(0, 10), sticky="w")
 watermark_text = ttk.Entry(width=35)
 watermark_text.grid(column=0, row=7, sticky="w")
 watermark_text.config(state="disabled")
-text_color = StringVar()
+text_color = StringVar(value="white")
 color_choice = ttk.Combobox(window, textvariable=text_color)
-color_choice.config(values=("White text", "Black text"), state="readonly")
+color_choice.config(values=("White", "Black", "Blue", "Red"), state="readonly")
 color_choice.config(state="disabled")
-color_choice.set("White text")
+color_choice.set("Text Color")
 color_choice.grid(column=0, row=7, sticky="e")
 confirm_text_button = ttk.Button(text="Confirm text", command=get_text)
 confirm_text_button.grid(column=0, row=9, pady=(10, 0), sticky="w")
 confirm_text_button.config(state="disabled")
 
-# Step three - choose where you want your watermark to be on the image. The Radio Buttons provide the possible options.
-step_three = ttk.Label(
+
     text="Step 3. Where would you like your mark?",
     background=BACKGROUND_COLOR,
     foreground=TEXT_COLOR,
@@ -205,8 +206,7 @@ confirm_location_button = ttk.Button(text="Confirm location of watermark", comma
 confirm_location_button.grid(column=0, row=16, pady=(10, 0), sticky="w")
 confirm_location_button.config(state="disabled")
 
-# The final step is to click the button to retrieve your now watermarked image. The watermarked image is saved in your
-# current directory as "watermarked_image.png".
+
 final_step = ttk.Label(
     text="Step 4. Click the button below to get your image",
     background=BACKGROUND_COLOR,
