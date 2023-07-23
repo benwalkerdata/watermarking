@@ -139,7 +139,8 @@ confirm_text_button = ttk.Button(text="Confirm text", command=get_text)
 confirm_text_button.grid(column=0, row=9, pady=(10, 0), sticky="w")
 confirm_text_button.config(state="disabled")
 
-
+# Step three - choose where you want your watermark to be on the image. The Radio Buttons provide the possible options.
+step_three = ttk.Label(
     text="Step 3. Where would you like your mark?",
     background=BACKGROUND_COLOR,
     foreground=TEXT_COLOR,
